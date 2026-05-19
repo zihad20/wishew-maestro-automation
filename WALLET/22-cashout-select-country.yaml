@@ -1,0 +1,40 @@
+appId: ${MAESTRO_APP_ID}
+name: "WALLET - Cashout: Select Country"
+tags: [wallet, cashout, country]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-wallet"
+
+
+- tapOn: "Withdraw"
+- tapOn:
+    id: "cashout-amount"
+- inputText: "100"
+- pressKey: Enter
+
+- tapOn: "Add cash-out method"
+- tapOn: "Select country"
+- tapOn:
+    id: "cashout-country-search"
+- inputText: "US"
+- tapOn:
+    id: "cashout-country-option-us"
+- pressKey: Enter
+- waitForAnimationToEnd
+- tapOn:
+    id: "cashout-country-option-us"
+- waitForAnimationToEnd
+- tapOn:
+    id: "cashout-country-submit"
+- waitForAnimationToEnd
+- assertVisible: "What's your bank info?"
+- assertVisible: "Add your bank details for secure transfers."
+- assertVisible: "USA"
+- assertVisible: "Connect your bank with Coinflow"
+- assertVisible: "For this country, withdrawals use Coinflow bank authorization instead of manual bank details."
+- assertVisible:
+    id: "bank-details-bank-auth"
+
+

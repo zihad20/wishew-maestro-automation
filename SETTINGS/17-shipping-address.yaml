@@ -1,0 +1,111 @@
+appId: ${MAESTRO_APP_ID}
+name: "SETTINGS - Shipping Address"
+tags: [settings, shipping-address]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-profile"
+
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- assertVisible: "Edit Profile"
+
+- swipe:
+    direction: UP
+    distance: 80%
+
+- waitForAnimationToEnd
+- swipe:
+    direction: UP
+    distance: 50%
+
+- waitForAnimationToEnd
+
+- assertVisible: "Shipping address"
+# If shipping address already exists then delete it first
+- runFlow:
+    when:
+      notVisible:
+        id: "profile-edit-shipping-add"
+    commands:
+
+      - tapOn:
+          id: "profile-edit-shipping-remove"
+
+      - tapOn: "Delete"
+
+      - assertVisible: "Address deleted"
+
+# Add new shipping address
+- tapOn:
+    id: "profile-edit-shipping-add"
+
+- extendedWaitUntil:
+    visible:
+      id: "shipping-full-name"
+    timeout: 10000
+
+# Full Name
+- tapOn:
+    id: "shipping-full-name"
+
+- inputRandomText:
+    length: 8
+
+- pressKey: Enter
+
+# Street Address
+- tapOn:
+    id: "shipping-street"
+
+- inputText: "123 Main Street"
+
+- pressKey: Enter
+
+# City
+- tapOn:
+    id: "shipping-city"
+
+- inputText: "New York"
+
+- pressKey: Enter
+
+# State
+- tapOn:
+    id: "shipping-state"
+
+- inputText: "New York"
+
+- pressKey: Enter
+
+# Postal Code
+- tapOn:
+    id: "shipping-postal-code"
+
+- inputText: "10001"
+
+- pressKey: Enter
+
+# Country Dropdown
+- tapOn:
+    id: "shipping-country"
+
+- extendedWaitUntil:
+    visible:
+      id: "shipping-country-option-united-states"
+    timeout: 10000
+
+- tapOn:
+    id: "shipping-country-option-united-states"
+
+# Save Address
+- tapOn:
+    id: "shipping-submit"
+
+- assertVisible: "Shipping address saved"
+
+

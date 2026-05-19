@@ -1,0 +1,33 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "COMMUNITY - Add Comment"
+tags: [community, comment]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-community"
+
+- extendedWaitUntil:
+    visible:
+      id: "community-post-comment-.*"
+    timeout: 10000
+
+- tapOn:
+    id: "community-post-comment-.*"
+    index: 0
+
+- evalScript: ${output.commentSuffix = Math.random().toString(36).substring(2, 7)}
+- evalScript: ${output.commentText = "Automated test comment - please ignore. " + output.commentSuffix}
+
+- tapOn:
+    id: "comment-input"
+- inputText: ${output.commentText}
+
+- tapOn:
+    id: "comment-submit"
+
+- extendedWaitUntil:
+    visible: ${output.commentText}
+    timeout: 10000

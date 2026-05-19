@@ -1,0 +1,46 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "WISHES - Save Draft"
+tags: [wishes, create-wish, draft]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-wishes"
+- assertVisible: "Wishes For You"
+
+- tapOn:
+    id: "wishes-create-fab"
+
+- extendedWaitUntil:
+    visible: "Choose a category"
+    timeout: 10000
+
+- assertVisible: "What area does your wish belong to? Pick one to get started."
+
+- tapOn:
+    id: "wish-create-category-career"
+- tapOn:
+    id: "wish-create-next"
+
+- assertVisible: "Tell your wish"
+- assertVisible: "Freely describe what you'd like to achieve. AI will analyze your story to help you fill in the rest."
+
+- tapOn:
+    id: "wish-create-story"
+- inputRandomText:
+    length: 25
+- hideKeyboard
+
+- tapOn:
+    id: "wish-create-save-draft"
+
+- assertVisible:
+    id: "profile-filter-wishes-drafts"
+
+
+
+
+
+

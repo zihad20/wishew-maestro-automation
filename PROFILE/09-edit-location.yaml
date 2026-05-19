@@ -1,0 +1,66 @@
+# Test: Edit profile location.
+# Verifies the user can update their location field, save,
+# and see the location displayed on their profile.
+#
+# IDs to replace:
+#   TODO_ID_profile_tab          — bottom-nav or tab bar item for Profile
+#   TODO_ID_edit_profile_button  — "Edit Profile" button / pencil icon
+#   TODO_ID_location_field       — location TextInput on edit screen
+#   TODO_ID_save_profile_button  — "Save" / "Done" button
+#   TODO_ID_location_display     — element that renders location on profile view
+
+appId: ${MAESTRO_APP_ID}
+name: "PROFILE - Update Location"
+tags: [profile, edit-location]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-profile"
+
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- assertVisible: "Edit Profile"
+
+- swipe:
+    direction: UP
+    distance: 80%
+
+- waitForAnimationToEnd
+- swipe:
+    direction: UP
+    distance: 50%
+
+- waitForAnimationToEnd
+
+- assertVisible: "LOCATION"
+
+- tapOn:
+    id: "profile-edit-location"
+- longPressOn:
+    id: "profile-edit-location"
+- tapOn: "Select all"
+- eraseText: 10
+- inputText: "New York"
+- pressKey: Enter
+
+- extendedWaitUntil:
+    visible: "New York, NY, USA"
+    timeout: 10000
+
+- tapOn: "New York, NY, USA"
+
+- extendedWaitUntil:
+    visible: "Location detected: New York - New York - US"
+    timeout: 10000
+
+- extendedWaitUntil:
+    notVisible: "Location detected: New York - New York - US"
+    timeout: 10000
+
+- tapOn:
+    id: "profile-edit-submit"
+

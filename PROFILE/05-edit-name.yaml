@@ -1,0 +1,45 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "PROFILE - Edit Name"
+tags: [profile, edit-name]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- evalScript: ${output.firstName = Math.random().toString(36).substring(2, 10)}
+- evalScript: ${output.lastName = Math.random().toString(36).substring(2, 10)}
+
+- tapOn:
+    id: "tab-profile"
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- assertVisible: "Edit Profile"
+
+- tapOn:
+    id: "profile-edit-first-name"
+- eraseText: 100
+- inputText: ${output.firstName}
+- pressKey: Enter
+
+- tapOn:
+    id: "profile-edit-last-name"
+- eraseText: 100
+- inputText: ${output.lastName}
+- pressKey: Enter
+
+- tapOn:
+    id: "profile-edit-submit"
+
+
+- waitForAnimationToEnd
+
+- extendedWaitUntil:
+    notVisible:
+      id: "profile-edit-submit"
+    timeout: 10000
+
+- assertVisible: "${output.firstName} ${output.lastName}"
+

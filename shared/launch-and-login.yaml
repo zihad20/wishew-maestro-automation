@@ -1,0 +1,16 @@
+appId: ${MAESTRO_APP_ID}
+name: Launch app and log in (shared)
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+
+- openLink: "${MAESTRO_BASE_LINK}login"
+
+- runFlow:
+    file: perform-login.yaml
+    env:
+      MAESTRO_APP_ID: ${MAESTRO_APP_ID}
+      TEST_EMAIL: ${TEST_EMAIL}
+      TEST_PASSWORD: ${TEST_PASSWORD}

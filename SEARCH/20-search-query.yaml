@@ -1,0 +1,40 @@
+# Test: Execute a search query and verify results appear.
+# Verifies the user can open the search screen, type a query,
+# and see a populated results list (or empty-state element).
+#
+# IDs to replace:
+#   TODO_ID_search_tab            — bottom-nav or tab item for Search / Explore
+#   TODO_ID_search_input_field    — search TextInput / SearchBar
+#   TODO_ID_search_results_list   — list / scroll view that renders search results
+#   TODO_ID_search_result_item    — individual result row (assert at least one is visible)
+
+appId: ${MAESTRO_APP_ID}
+name: "SEARCH - Search Flow"
+tags: [search, query]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+# Valid Search
+- tapOn:
+    id: "nav-search"
+- assertVisible:
+    id: "search-query"
+- inputText: "janice.parr"
+- assertVisible: "Janice Parr"
+- assertVisible: "All"
+- assertVisible: "Wishes"
+- assertVisible: "Users"
+- assertVisible: "Posts"
+
+
+- tapOn: "All"
+- tapOn: "Wishes"
+- tapOn: "Users"
+- tapOn: "Posts"
+- tapOn: "All"
+
+- tapOn: "Clear"
+
+# Invalid Serach 
+- inputText: "xft"
+- assertVisible: "Try different keywords"

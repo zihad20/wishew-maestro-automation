@@ -1,0 +1,95 @@
+appId: ${MAESTRO_APP_ID}
+name: "WISHES - Donation Drawer"
+tags: [wishes, donate, drawer]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-wishes"
+
+- assertVisible: "Wishes For You"
+- assertVisible: "Near You"
+- assertVisible: "Popular"
+- assertVisible: "Just Started"
+
+
+# appId: ${MAESTRO_APP_ID}
+# name: "12 — Donate: open donation drawer"
+# tags: [wishes, donate, drawer]
+# ---
+# - runFlow: ../shared/launch-and-login.yaml
+
+# - tapOn:
+#     id: "tab-wishes"
+# - waitForAnimationToEnd
+# - waitForAnimationToEnd
+# # - tapOn:
+# #     id: "wish-card-.*"
+# #     index: 0
+
+# # - tapOn:
+# #     id: "wish-item-2702"
+
+# # - repeat:
+# #     while:
+# #       notVisible:
+# #         id: "wish-item-2702"
+# #     commands:
+
+# #       - swipe:
+# #           start: 50%,80%
+# #           end: 50%,30%
+
+# #       - waitForAnimationToEnd
+
+# - tapOn:
+#     id: "wish-item-2702"
+
+# - assertVisible:
+#     id: "wish-detail-share-sticky"
+# - assertVisible:
+#     id: "wish-detail-support"
+# - tapOn:
+#     id: "wish-detail-support"
+# - assertVisible: "Free donation"
+# - tapOn: "$5"
+# - tapOn:
+#     id: "donate-submit"
+
+# - assertVisible: "Secure checkout"
+# - tapOn:
+#     id: "headlessui-radiogroup-_r_3_"
+# - swipe:
+#     direction: UP
+#     distance: 70%
+
+# - tapOn:
+#     id: "cardNumber"
+# - inputText: "4242424242424242"
+# - pressKey: Enter
+# - inputText: "0242"
+# - pressKey: Enter
+# - inputText: "024"
+# - hideKeyboard
+# - tapOn:
+#     id: "headlessui-control-_r_c_"
+# - inputRandomText:
+#     length: 8
+# - pressKey: Enter
+
+# - assertVisible:
+#     id: "headlessui-control-_r_f_"
+# - inputText: "255 Winding Creek"
+# - extendedWaitUntil:
+#     visible: "255 Winding Creek Circle, Crescent City, CA, USA"
+#     timeout: 10000
+
+# - tapOn: "255 Winding Creek Circle, Crescent City, CA, USA"
+
+# - swipe:
+#     direction: UP
+#     distance: 70%
+
+# - tapOn: "Confirm Purchase of $ 5.00"
+# - assertVisible: "Congratulations!"
+# - assertVisible: "You're now part of this wish's story"

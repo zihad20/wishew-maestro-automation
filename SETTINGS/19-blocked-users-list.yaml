@@ -1,0 +1,22 @@
+
+appId: ${MAESTRO_APP_ID}
+name: "SETTINGS - Blocked Users list"
+tags: [settings, blocked-users]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-profile"
+
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-more-actions"
+
+- tapOn:
+    id: "profile-actions-blocked-users"
+
+- assertVisible: "No blocked users"
+
+
+

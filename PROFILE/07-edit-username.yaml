@@ -1,0 +1,28 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "PROFILE - Change Username"
+tags: [profile, edit-username]
+---
+- runFlow: ../shared/launch-and-login.yaml
+- evalScript: ${output.userName = Math.random().toString(36).substring(2, 8)}
+- tapOn:
+    id: "tab-profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- tapOn:
+    id: "profile-edit-username"
+- eraseText: 6
+- inputText: ${output.userName}
+- pressKey: Enter
+
+- tapOn:
+    id: "profile-edit-submit"
+
+- extendedWaitUntil:
+    notVisible:
+      id: "profile-edit-submit"
+    timeout: 10000
+

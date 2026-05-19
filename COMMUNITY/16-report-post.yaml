@@ -1,0 +1,28 @@
+
+appId: ${MAESTRO_APP_ID}
+name: "COMMUNITY - Report Post"
+tags: [community, report]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-community"
+
+- tapOn:
+    id: "community-post-menu-.*"
+    index: 0
+
+- tapOn: "Report post"
+
+- extendedWaitUntil:
+    visible:
+      id: "report-reason-16"
+    timeout: 10000
+
+- tapOn:
+    id: "report-reason-16"
+
+- tapOn:
+    id: "report-submit"
+
+# - assertVisible: "Post reported. We'll review it shortly."

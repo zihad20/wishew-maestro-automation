@@ -1,0 +1,41 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "COMMUNITY - Edit Post"
+tags: [community, edit-post]
+# tags:
+#   - community
+#   - edit-post
+#   - smoke
+---
+- runFlow: ../community/13-create-post.yaml
+
+- tapOn: ${output.postTitle}
+
+- tapOn:
+    id: "community-detail-actions"
+
+- tapOn:
+    id: "community-detail-action-edit"
+
+- tapOn:
+    id: "community-edit-title"
+- eraseText: 5
+- inputRandomText:
+    length: 5
+- pressKey: Enter
+
+- tapOn:
+    id: "community-edit-body"
+- eraseText: 5
+- inputRandomText:
+    length: 5
+- hideKeyboard
+
+- tapOn: "Startups & Business"
+
+- tapOn:
+    id: "community-edit-submit"
+
+#- assertVisible: "Edit published!"
+

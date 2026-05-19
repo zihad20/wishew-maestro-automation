@@ -1,0 +1,108 @@
+appId: ${MAESTRO_APP_ID}
+name: "WISHES - Create Wishes"
+tags: [wishes, create-wish, category]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-wishes"
+
+- assertVisible: "Wishes For You"
+
+- tapOn:
+    id: "wishes-create-fab"
+
+
+- extendedWaitUntil:
+    visible: "Choose a category"
+    timeout: 10000
+
+- assertVisible: "What area does your wish belong to? Pick one to get started."
+
+- assertVisible:
+    id: "wish-create-category-career"
+
+- assertVisible:
+    id: "wish-create-category-startups"
+
+- assertVisible:
+    id: "wish-create-category-creative"
+
+- assertVisible:
+    id: "wish-create-category-tech"
+
+- swipe:
+    direction: UP
+    distance: 50%
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "wish-create-category-education"
+
+- assertVisible:
+    id: "wish-create-category-travel"
+
+- assertVisible:
+    id: "wish-create-category-health"
+
+- assertVisible:
+    id: "wish-create-category-community"
+
+- tapOn:
+    id: "wish-create-category-community"
+
+- assertVisible:
+    id: "wish-create-next"
+
+- tapOn:
+    id: "wish-create-next"
+
+- assertVisible: "Tell your wish"
+- assertVisible: "Freely describe what you'd like to achieve. AI will analyze your story to help you fill in the rest."
+- tapOn:
+    id: "wish-create-story"
+- inputRandomText:
+    length: 120
+- hideKeyboard
+- tapOn:
+    id: "wish-create-analyze"
+
+- assertVisible: "Analysis result"
+- tapOn:
+    id: "wish-create-title"
+- inputRandomText:
+    length: 15
+- pressKey: Enter
+- tapOn:
+    id: "wish-create-description"
+- inputRandomText:
+    length: 120
+- swipe:
+    direction: UP
+    distance: 70%
+
+- tapOn:
+    id: "wish-create-amount"
+- inputText: "125"
+- pressKey: Enter
+- tapOn:
+    id: "wish-create-next"
+- assertVisible: "Add media"
+
+- tapOn: "Add a video or photos"
+
+
+- tapOn: "Photo taken on May 14, 2026 5:09 PM"
+- tapOn: "Done"
+
+- tapOn:
+    id: "wish-create-next"
+- assertVisible: "Rewards"
+- tapOn: "Next"
+- tapOn:
+    id: "wish-create-publish"
+
+- assertVisible: "Wish submitted!"
+- tapOn: "Go to my wishes"
+

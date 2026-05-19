@@ -1,0 +1,30 @@
+
+appId: ${MAESTRO_APP_ID}
+name: "SETTINGS - Link Account"
+tags: [settings, linked-accounts, email]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-profile"
+
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-more-actions"
+- tapOn:
+    id: "profile-actions-settings"
+- assertVisible:
+    id: "settings-add-account"
+- tapOn:
+    id: "settings-add-account"
+- assertVisible: "Google"
+- assertVisible:
+    id: "settings-accounts-add-google"
+- assertVisible: "Apple"
+- assertVisible:
+    id: "settings-accounts-add-apple"
+- assertVisible: "Facebook"
+- assertVisible:
+    id: "settings-accounts-add-facebook"
+

@@ -1,0 +1,65 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "COMMUNITY - Create Post"
+tags:
+  - community
+  - create-post
+  - smoke
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn: "Community"
+
+- assertVisible: "Community For You"
+
+- swipe:
+    start: 80%,20%
+    end: 20%,20%
+
+- waitForAnimationToEnd
+
+- swipe:
+    start: 20%,20%
+    end: 80%,20%
+
+
+- evalScript: ${output.postTitle = "Automated community post " + Date.now()}
+- evalScript: ${output.postDescription = "Automated community post description " + Date.now()}
+
+- tapOn: "New post"
+
+- assertVisible: "TITLE *"
+
+- tapOn:
+    id: "community-create-title"
+- eraseText: 100
+- inputText: ${output.postTitle}
+- pressKey: Enter
+
+- tapOn:
+    id: "community-create-body"
+- eraseText: 100
+- inputText: ${output.postDescription}
+- hideKeyboard
+
+- tapOn: "Career & Direction"
+
+- extendedWaitUntil:
+    visible:
+      id: "community-create-submit"
+    timeout: 10000
+
+- tapOn:
+    id: "community-create-submit"
+
+
+- extendedWaitUntil:
+    visible: "Under review..."
+    timeout: 15000
+
+- extendedWaitUntil:
+    visible: "Published!"
+    timeout: 15000
+
+- assertVisible: ${output.postTitle}

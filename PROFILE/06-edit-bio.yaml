@@ -1,0 +1,48 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "PROFILE - Update Bio"
+tags: [profile, edit-bio]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-profile"
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- assertVisible: "Edit Profile"
+
+- swipe:
+    direction: UP
+    distance: 50%
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "profile-edit-bio"
+
+- evalScript: ${output.bioText = Math.random().toString(36).substring(2, 12)}
+
+- tapOn:
+    id: "profile-edit-bio"
+- longPressOn:
+    id: "profile-edit-bio"
+- tapOn: "Select all"
+- eraseText: 10
+- inputText: ${output.bioText}
+- hideKeyboard
+
+- tapOn:
+    id: "profile-edit-submit"
+
+- waitForAnimationToEnd
+
+- extendedWaitUntil:
+    notVisible:
+      id: "profile-edit-submit"
+    timeout: 10000
+
+# - assertVisible: ${output.bioText}

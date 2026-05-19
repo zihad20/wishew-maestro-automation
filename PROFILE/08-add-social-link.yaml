@@ -1,0 +1,72 @@
+appId: ${MAESTRO_APP_ID}
+name: "PROFILE - Add Social Link"
+tags: [profile, social-link]
+---
+- runFlow: ../shared/launch-and-login.yaml
+- evalScript: ${output.instagram = Math.random().toString(36).substring(2, 12)}
+- evalScript: ${output.tiktok = Math.random().toString(36).substring(2, 12)}
+- evalScript: ${output.x = Math.random().toString(36).substring(2, 12)}
+- evalScript: ${output.youtube = Math.random().toString(36).substring(2, 12)}
+- evalScript: ${output.reddit = Math.random().toString(36).substring(2, 12)}
+- evalScript: ${output.facebook = Math.random().toString(36).substring(2, 12)}
+
+- tapOn:
+    id: "tab-profile"
+
+- assertVisible: "My profile"
+
+- tapOn:
+    id: "profile-edit"
+
+- assertVisible: "Edit Profile"
+
+- swipe:
+    direction: UP
+    distance: 50%
+
+- waitForAnimationToEnd
+
+- assertVisible: "Social Links"
+
+# Remove existing Instagram link if already added
+- runFlow:
+    when:
+      visible:
+        id: "profile-edit-social-instagram-remove"
+    commands:
+
+      - tapOn:
+          id: "profile-edit-social-instagram-remove"
+
+      - waitForAnimationToEnd
+
+# Add Instagram link
+- tapOn:
+    id: "profile-edit-social-instagram-add"
+
+- extendedWaitUntil:
+    visible:
+      id: "profile-edit-social-instagram-username"
+    timeout: 10000
+
+- tapOn:
+    id: "profile-edit-social-instagram-username"
+
+- inputText: ${output.instagram}
+
+- pressKey: Enter
+
+- tapOn:
+    id: "profile-edit-social-instagram-confirm"
+
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "profile-edit-submit"
+
+- waitForAnimationToEnd
+
+- extendedWaitUntil:
+    notVisible:
+      id: "profile-edit-submit"
+    timeout: 10000

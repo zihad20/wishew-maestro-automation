@@ -1,0 +1,15 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "WALLET - Cashout: Amount Input"
+tags: [wallet, cashout, amount]
+---
+- runFlow: ../shared/launch-and-login.yaml
+
+- tapOn:
+    id: "tab-wallet"
+- tapOn: "Withdraw"
+- tapOn:
+    id: "cashout-amount"
+- inputText: "100"
+- pressKey: Enter

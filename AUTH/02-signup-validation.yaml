@@ -1,0 +1,91 @@
+
+
+appId: ${MAESTRO_APP_ID}
+name: "AUTH - Signup Validation"
+tags: [auth, signup, validation]
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+
+
+- repeat:
+    while:
+      visible:
+        id: "welcome-close"
+    commands:
+      - tapOn:
+          id: "welcome-close"
+
+- swipe:
+    direction: UP
+    distance: 70%
+
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "login-go-to-signup"
+- tapOn:
+    id: "signup-submit"
+
+- assertVisible: "First name must be at least 2 characters"
+- assertVisible: "Last name must be at least 2 characters"
+- assertVisible: "Email is required"
+- assertVisible: "Password must be at least 6 characters"
+
+- tapOn:
+    id: "signup-first-name"
+- inputRandomText:
+    length: 8
+- pressKey: Enter
+
+- tapOn:
+    id: "signup-last-name"
+- inputRandomText:
+    length: 8
+- pressKey: Enter
+
+- evalScript: ${output.signupEmail = "qa." + Date.now() + "@yopmail.com"}
+- tapOn:
+    id: "signup-email"
+- inputText: ${output.signupEmail}
+- pressKey: Enter
+
+- tapOn:
+    id: "signup-password"
+- inputText: "Test@12345"
+- pressKey: Enter
+
+- assertVisible:
+    id: "signup-submit"
+
+- tapOn:
+    id: "signup-submit"
+
+- assertVisible: "Check your inbox"
+- assertVisible: "VERIFICATION CODE *"
+- assertVisible: "Enter the verification code we sent to ${output.signupEmail}."
+- assertVisible:
+    id: "check-inbox-try-another"
+- assertVisible:
+    id: "check-inbox-resend"
+
+
+- assertVisible:
+    id: "check-inbox-otp-0"
+- tapOn:
+    id: "check-inbox-otp-0"
+- inputText: "123456"
+- pressKey: Enter
+
+- tapOn:
+    id: "check-inbox-submit"
+
+- assertVisible: "Invalid or expired code"
+
+- tapOn:
+    id: "check-inbox-close"
+
+
+

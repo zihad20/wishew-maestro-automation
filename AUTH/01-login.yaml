@@ -1,0 +1,207 @@
+appId: ${MAESTRO_APP_ID}
+name: "AUTH - Login Flow"
+tags:
+  - auth
+  - login
+  - smoke
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+
+- openLink: "${MAESTRO_BASE_LINK}login"
+
+# - runFlow:
+#     file: ../shared/perform-login.yaml
+  # env:
+  #     MAESTRO_APP_ID: ${MAESTRO_APP_ID}
+  #     TEST_EMAIL: ${TEST_EMAIL}
+  #     TEST_PASSWORD: ${TEST_PASSWORD}
+
+# Landing Screen 1
+- assertVisible:
+    id: "welcome-close"
+- assertVisible: "Welcome to Wishew"
+- assertVisible: "A new global standard for wishes and personal projects."
+- assertVisible: "Join the community"
+- assertVisible: "10,000+ people building in public"
+- assertVisible:
+    id: "welcome-next"
+
+- tapOn:
+    id: "welcome-next"
+
+# Landing Screen 2
+- assertVisible:
+    id: "welcome-close"
+- assertVisible: "Speak about where you're going."
+- assertVisible: "Share your ideas, pivots and ambitions. Build in public with people moving forward."
+- assertVisible: "Join the community"
+- assertVisible: "10,000+ people building in public"
+- assertVisible:
+    id: "welcome-next"
+- tapOn:
+    id: "welcome-next"
+
+# Landing Screen 3
+- assertVisible:
+    id: "welcome-close"
+- assertVisible: "Turn it into a wish."
+- assertVisible: "Make your goal visible. Define the next step. Set it in motion."
+- assertVisible: "Join the community"
+- assertVisible: "10,000+ people building in public"
+- assertVisible:
+    id: "welcome-next"
+- tapOn:
+    id: "welcome-next"
+
+# Landing Screen 4
+- assertVisible:
+    id: "welcome-close"
+- assertVisible: "Move each other forward."
+- assertVisible: "Support real wishes. Back real projects. Be part of real progress."
+- assertVisible: "Join the community"
+- assertVisible: "10,000+ people building in public"
+- assertVisible:
+    id: "welcome-next"
+- tapOn:
+    id: "welcome-next"
+
+
+# Login Screen
+- assertVisible: "Welcome"
+- assertVisible: "Sign in to continue\nyour journey"
+- assertVisible: "EMAIL *"
+- assertVisible:
+    id: "login-email"
+- assertVisible: "PASSWORD *"
+- assertVisible:
+    id: "login-password"
+- assertVisible: "Forgot password?"
+- assertVisible:
+    id: "login-submit"
+- assertVisible: "OR CONTINUE WITH"
+- assertVisible: "Sign in with Facebook"
+- assertVisible: "Sign in with Google"
+- assertVisible: "Sign in with Apple"
+- assertVisible: "Don't have an account?"
+
+- swipe:
+    direction: UP
+    distance: 70%
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "login-go-to-signup"
+- assertVisible: "By signing up you agree to our\nTerms and Conditions and Privacy Policy\nwhich also tells you how we use your data."
+- swipe:
+    direction: DOWN
+    distance: 70%
+# Back Login screen to Landing Screen to Login screen
+- tapOn: "Welcome"
+- assertVisible:
+    id: "welcome-close"
+- assertVisible: "Welcome to Wishew"
+- assertVisible: "A new global standard for wishes and personal projects."
+- assertVisible:
+    id: "welcome-next"
+
+- tapOn:
+    id: "welcome-close"
+- assertVisible:
+    id: "login-email"
+
+# LoginScreen - 1st Landing page - 2nd Landing Screen - Login Screen
+- tapOn: "Welcome"
+- repeat:
+    while:
+      notVisible: "Speak about where you're going."
+    commands:
+      - tapOn:
+          id: "welcome-next"
+
+- assertVisible:
+    id: "welcome-close"
+- tapOn:
+    id: "welcome-close"
+- assertVisible:
+    id: "login-email"
+
+# LoginScreen - 1st Landing page - 2nd Landing Screen -3rd Landing Screen - Login Screen
+- tapOn: "Welcome"
+- repeat:
+    while:
+      notVisible: "Turn it into a wish."
+    commands:
+      - tapOn:
+          id: "welcome-next"
+
+- assertVisible:
+    id: "welcome-close"
+- tapOn:
+    id: "welcome-close"
+
+# LoginScreen - 1st Landing page - 2nd Landing Screen - 3rd Landing Screen - 4th Landing Screen - Login Screen
+- tapOn: "Welcome"
+- repeat:
+    while:
+      notVisible: "Move each other forward."
+    commands:
+      - tapOn:
+          id: "welcome-next"
+
+- assertVisible:
+    id: "welcome-close"
+- tapOn:
+    id: "welcome-close"
+
+# Try to Empty field Login Excution
+- tapOn:
+    id: "login-submit"
+- assertVisible: "Enter email and password to continue"
+
+# Try to Invalid credential Login Excution
+- tapOn:
+    id: "login-email"
+- inputText: "test34@dom.com"
+
+- tapOn:
+    id: "login-password"
+- inputText: "testpass"
+- pressKey: Enter
+
+- tapOn:
+    id: "login-submit"
+
+- assertVisible: "Invalid email or password"
+
+
+# Login Excution
+- tapOn:
+    id: "login-email"
+- eraseText: 100
+- inputText: ${TEST_EMAIL}
+- pressKey: Enter
+
+- tapOn:
+    id: "login-password"
+- eraseText: 100
+- inputText: ${TEST_PASSWORD}
+- pressKey: Enter
+
+- tapOn:
+    id: "login-submit"
+
+- assertVisible:
+    id: "tab-home"
+- assertVisible:
+    id: "tab-wishes"
+- assertVisible:
+    id: "tab-community"
+- assertVisible:
+    id: "tab-wallet"
+
+
+
